@@ -68,6 +68,8 @@ func main() {
 	i := 0
 	for i < len(intermediate) {
 		j := i + 1
+		// 去除同一类从map获取的数据并一同交给reduce处理
+		// intermediate已排序
 		for j < len(intermediate) && intermediate[j].Key == intermediate[i].Key {
 			j++
 		}

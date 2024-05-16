@@ -36,10 +36,12 @@ func loadPlugin(filename string) (func(string, string) []mr.KeyValue, func(strin
 	if err != nil {
 		log.Fatalf("cannot load plugin %v", filename)
 	}
+	// 查找插件中的Map函数符号
 	xmapf, err := p.Lookup("Map")
 	if err != nil {
 		log.Fatalf("cannot find Map in %v", filename)
 	}
+	// 类型断言，将查找到的符号转换为func(string, string) []mr.KeyValue类型。
 	mapf := xmapf.(func(string, string) []mr.KeyValue)
 	xreducef, err := p.Lookup("Reduce")
 	if err != nil {
@@ -47,5 +49,6 @@ func loadPlugin(filename string) (func(string, string) []mr.KeyValue, func(strin
 	}
 	reducef := xreducef.(func(string, []string) string)
 
+	// 返回插件中找到的Map和Reduce函数
 	return mapf, reducef
 }

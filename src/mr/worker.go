@@ -38,6 +38,20 @@ func Worker(mapf func(string, string) []KeyValue,
 
 }
 
+func CallCorrdinator() {
+
+	args := ExampleArgs{}
+	args.X = 99
+	reply := ExampleReply{}
+	
+
+	call("Coordinator.Example", &args, &reply)
+	fmt.Printf("reply.Y %v\n", reply.Y)
+}
+
+
+
+
 //
 // example function to show how to make an RPC call to the coordinator.
 //
